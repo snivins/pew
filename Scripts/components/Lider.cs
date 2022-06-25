@@ -29,5 +29,7 @@ public struct Lider : IComponentData
     public Vector3d force;
     public Vector3d aceleration;
     public double distancia;
+    public double meanAnomaly;
+    public bool real_sim;
 
 }

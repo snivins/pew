@@ -21,7 +21,7 @@ public partial class PlanetariumSystem : SystemBase
         // Translation and Rotation components. Change it to process the component
         // types you want.
 
-        double accuracyTolerance = 1e-8d;
+        double accuracyTolerance = 1e-7d;
 
         //if (timerino < 1d) return;
         Entities.ForEach((ref Planeta planeta, in PlanetarianOrbit po) => {

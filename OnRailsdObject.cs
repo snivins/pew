@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Transforms;
@@ -44,11 +44,12 @@ public class OnRailsdObject : MonoBehaviour
     Vector3 ref_pos;
     List<Vector3> orbitalPoints_Rel = new List<Vector3>();
     List<double> anomalies_Rel = new List<double>();
-
+    
     public double influence_distance;
     EntityManager em;
     private void OnValidate() => orbitalPoints.Clear();
     void Awake() => CalculateSimuConstants();
+    public bool mostrar_distancia = false;
     void Start()
     {
         
@@ -187,11 +188,15 @@ public class OnRailsdObject : MonoBehaviour
         transform.position = new Vector3((float)x, (float)y, (float)z) + referenceBody.transform.position;*/
 
         //Vector3 old_pos = transform.position;
-        Vector3 sim_positon = (em.GetComponentData<Planeta>(plantity).simulated_pos / 100000d).ToFloat() + referenceBody.transform.position;
+        Vector3 sim_positon = (em.GetComponentData<Planeta>(plantity).simulated_pos  - referenceBody.GetComponent<SimulatedSpace>().sim_pos).ToFloat()/10f;
         transform.position = sim_positon;
+        if (mostrar_distancia)
+        {
+            Debug.Log(sim_positon.magnitude);
+        }
 
 
-        modulo = em.GetComponentData<Planeta>(plantity).meanAnomaly % Math.TAU;
+            modulo = em.GetComponentData<Planeta>(plantity).meanAnomaly % Math.TAU;
         if (modulo < 0d)
         {
             modulo = Math.TAU + modulo; 
@@ -229,6 +234,7 @@ public class OnRailsdObject : MonoBehaviour
             begin_points.AddRange(end_points);
             ln.positionCount = begin_points.Count;
             ln.SetPositions(begin_points.ToArray());
+            
         }
     }
 

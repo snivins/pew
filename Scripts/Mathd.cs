@@ -5,8 +5,10 @@ using System;
 using System.Runtime.CompilerServices;
 
 namespace UnityEngine {
-    public struct Mathd {
-        public const double PI = 3.141593d;
+    public struct Mathd
+    {
+        public const double PI = 3.14159265358979323846264338327950288420d;
+        public const double TAU = 2*PI;
         public const double Infinity = double.PositiveInfinity;
         public const double NegativeInfinity = double.NegativeInfinity;
         public const double Deg2Rad = 0.01745329d;

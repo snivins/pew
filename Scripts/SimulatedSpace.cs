@@ -26,8 +26,8 @@ public class SimulatedSpace : MonoBehaviour
     void LateUpdate()
     {
         if (ent == Entity.Null) return;
-        sim_pos = em.GetComponentData<Lider>(ent).simulated_pos/100000d;
-        //transform.position =-( sim_pos / 100000d).ToFloat();
+        sim_pos = em.GetComponentData<Lider>(ent).simulated_pos;
+        transform.position =-( sim_pos).ToFloat();
         vel = em.GetComponentData<Lider>(ent).speeeeeed.magnitude;
         if (vel< 100)
         {

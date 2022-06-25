@@ -2,6 +2,7 @@ using System;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using UnityEngine;
 
 [Serializable]
 public struct PlanetarianOrbit : IComponentData
@@ -26,4 +27,6 @@ public struct PlanetarianOrbit : IComponentData
     public double argumentOfPeriapsis;
     public double masa;
     public double influence_distance;
+    public Vector3d e_vector;
+    public Vector3d n_vector;
 }

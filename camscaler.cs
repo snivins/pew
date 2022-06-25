@@ -16,8 +16,8 @@ public class camscaler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3d.ToFloaterino(solar_ref.GetComponent<SimulatedSpace>().sim_pos );// + othercam.transform.position /10000f;
+        //transform.position = Vector3d.ToFloaterino(solar_ref.GetComponent<SimulatedSpace>().sim_pos);// + othercam.transform.position /10000f;
+        transform.position = othercam.transform.position ;
         transform.rotation = othercam.transform.rotation;
-        Debug.Log((transform.position-tierra.position).z);
     }
 }
