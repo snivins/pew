@@ -52,7 +52,8 @@ public partial class OffsetSystem_ForEach : SystemBase
                 q = rotation.Value;
             //}
             //position.Value +=  new float3(0, 0, 1) * deltaTime;
-            acel = lider.aceleration.ToFloat(); 
+            acel = lider.aceleration.ToFloat();
+            pos = lider.simulated_pos.ToFloat();
         }).Run();
 
         //Entity momo = GetSingletonEntity<Lider>();
@@ -68,7 +69,7 @@ public partial class OffsetSystem_ForEach : SystemBase
             /*Entity mm = GetSingletonEntity<Lider>();
             pos = GetComponentDataFromEntity<Translation>()[mm].Value;
             q = GetComponentDataFromEntity<Rotation>()[mm].Value;*/
-            //position.Value += acel * -1f;
+            position.Value += acel * -1f;
             float3 posi_rel = position.Value;
             float3 posi_final = pos + math.mul(q, offset.offset);
             /* Vector3d p_f = Vector3d.Tove3(posi_final);

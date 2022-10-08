@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 [Serializable]
-public struct PlanetarianOrbit : IComponentData
+public struct CameraPos : IComponentData
 {
     // Add fields to your component here. Remember that:
     //
@@ -20,14 +20,6 @@ public struct PlanetarianOrbit : IComponentData
     // * You should focus on the data structure that makes the most sense
     //   for runtime use here. Authoring Components will be used for 
     //   authoring the data in the Editor.
-    public double mu;
-    public double eccentricity;
-    public double n, cosLOAN, sinLOAN, sinI, cosI, trueAnomalyConstant;
-    public double semiMajorAxis;
-    public double argumentOfPeriapsis;
-    public double masa;
-    public double influence_distance;
-    public Vector3d e_vector;
-    public Vector3d n_vector;
-    public FixedString64Bytes nombre;
+
+    public Vector3d sim_pos;
 }

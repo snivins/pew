@@ -65,6 +65,7 @@ namespace UnityEngine
         {
             get
             {
+                if (Mathd.Abs(Mathd.Sqrt(this.x * this.x + this.y * this.y + this.z * this.z)) < EPSILON_MAGNITUDE_SQR) return 0d;
                 return Mathd.Sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
             }
         }
@@ -135,6 +136,12 @@ namespace UnityEngine
             this.y = (double)coord.y;
             this.z = (double)coord.z;
         }
+        public Vector3d(float3 coord)
+        {
+            this.x = (double)coord.x;
+            this.y = (double)coord.y;
+            this.z = (double)coord.z;
+        }
 
         public static implicit operator Vector2d(Vector3d v)
         {
@@ -192,7 +199,13 @@ namespace UnityEngine
             this.x = new_x;
             this.y = new_y;
         }
-
+        public static Vector3d Cross(Vector3d lhs, Vector3d rhs)
+        {
+            return new Vector3d(
+                lhs.y * rhs.z - lhs.z * rhs.y,
+                lhs.z * rhs.x - lhs.x * rhs.z,
+                lhs.x * rhs.y - lhs.y * rhs.x);
+        }
         public static Vector3d Lerp(Vector3d from, Vector3d to, double t)
         {
             t = Mathd.Clamp01(t);

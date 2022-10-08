@@ -5,8 +5,10 @@ using System;
 using System.Runtime.CompilerServices;
 
 namespace UnityEngine {
-    public struct Mathd {
-        public const double PI = 3.141593d;
+    public struct Mathd
+    {
+        public const double PI = 3.141592653589793;//23846264338327950288420d;
+        public const double TAU = 2*PI;
         public const double Infinity = double.PositiveInfinity;
         public const double NegativeInfinity = double.NegativeInfinity;
         public const double Deg2Rad = 0.01745329d;
@@ -49,6 +51,7 @@ namespace UnityEngine {
             return Math.Abs(d);
         }
 
+        public static double Dot(Vector3d lhs, Vector3d rhs) { return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z; }
         public static int Abs(int value) {
             return Math.Abs(value);
         }

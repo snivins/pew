@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Transforms;
@@ -44,14 +44,16 @@ public class OnRailsdObject : MonoBehaviour
     Vector3 ref_pos;
     List<Vector3> orbitalPoints_Rel = new List<Vector3>();
     List<double> anomalies_Rel = new List<double>();
-
+    public Vector3d sim_positon;
     public double influence_distance;
+    public Vector3d sped;
     EntityManager em;
     private void OnValidate() => orbitalPoints.Clear();
     void Awake() => CalculateSimuConstants();
+    public bool mostrar_distancia = false;
+    public CustomCamerino camera;
     void Start()
     {
-        
            ln = GetComponent<LineRenderer>();
         CalculateKmConstants();
         GetOrbits();
@@ -112,12 +114,14 @@ public class OnRailsdObject : MonoBehaviour
             semiMajorAxis = semiMajorAxis * 100000d,//*1000d,
             argumentOfPeriapsis = argumentOfPeriapsis,
             masa = masa_planeta,
-            influence_distance = influence_distance
+            influence_distance = influence_distance,
+            nombre = this.name
         }
         );
         plantity = pplantity;
         CalculateSemiConstants();
         //em.Instantiate(pplantity);
+        camera = GameObject.Find("Camera").GetComponent<CustomCamerino>();
     }
     public double F(double E, double e, double M)  //Function f(x) = 0
     {
@@ -187,11 +191,16 @@ public class OnRailsdObject : MonoBehaviour
         transform.position = new Vector3((float)x, (float)y, (float)z) + referenceBody.transform.position;*/
 
         //Vector3 old_pos = transform.position;
-        Vector3 sim_positon = (em.GetComponentData<Planeta>(plantity).simulated_pos / 100000d).ToFloat() + referenceBody.transform.position;
-        transform.position = sim_positon;
+         sim_positon = (em.GetComponentData<Planeta>(plantity).simulated_pos  - referenceBody.GetComponent<SimulatedSpace>().sim_pos);
+        sped = em.GetComponentData<Planeta>(plantity).simulated_speed;
+        transform.position =  ((sim_positon  - camera.sim_pos) / 1000d).ToFloat();
+        if (mostrar_distancia)
+        {
+            Debug.Log(sim_positon.magnitude);
+        }
 
 
-        modulo = em.GetComponentData<Planeta>(plantity).meanAnomaly % Math.TAU;
+            modulo = em.GetComponentData<Planeta>(plantity).meanAnomaly % Math.TAU;
         if (modulo < 0d)
         {
             modulo = Math.TAU + modulo; 
@@ -229,6 +238,7 @@ public class OnRailsdObject : MonoBehaviour
             begin_points.AddRange(end_points);
             ln.positionCount = begin_points.Count;
             ln.SetPositions(begin_points.ToArray());
+            
         }
     }
 
